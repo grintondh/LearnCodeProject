@@ -1,0 +1,14 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+    background-color: #eee;
+}
+#header {
+    padding-top: 33px;
+}
+.content {
+    text-align: justify;
+    border: 1px solid gray;
+    padding: 1px 1px 1px 1px;
+}
