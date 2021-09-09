@@ -1,6 +1,15 @@
+body {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    color: #403233;
+}
+
 #nav {
     background-color: black;
     color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 200;
 }
     
 #nav ul {
@@ -25,6 +34,7 @@
 #nav a:hover {
     background-color: white;
     color: black;
+    transform: scale(1.5);
 }
 
 #nav ul .active {
@@ -32,13 +42,11 @@
     color: white;
 }
 
-body {
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-}
 .container {
-    background-color: #eee;
     margin: 2%;
     border-radius: 1%;
+    position: relative;
+    background: linear-gradient(13deg,#B9FFB7,#ABEDC6,#98D9C2,#F19A3E);
 }
 #header {
     padding-top: 20px;
@@ -83,4 +91,6 @@ ul {
 
 footer {
     font-style: italic;
+    position: relative;
+    color: black;
 }
