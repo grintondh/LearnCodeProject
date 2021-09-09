@@ -1,0 +1,151 @@
+body {
+    font-family: 'Spartan', sans-serif;
+    font-size: 15px;
+    color: hsl(300, 43%, 22%);
+    background-image: url("https://fm-social-proof-section-master.vercel.app/images/bg-pattern-top-mobile.svg");
+    background-repeat: no-repeat;
+}
+
+#nav {
+    background-color: black;
+    color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+.container {
+    margin: 30px auto 0;
+    width: 90%;
+}
+    
+#nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#nav li {
+    float: left;
+}
+
+#nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    text-decoration: none;  
+    padding: 20px; 
+}
+
+#nav a:hover {
+    background-color: white;
+    color: black;
+    transform: scale(1.5);
+}
+
+#nav ul .active {
+    background-color: red;
+    color: white;
+}
+
+.intro {
+    text-align: center;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.intro strong {
+    font-size: 2.5rem;
+    line-height: 2.4rem;
+}
+
+.intro p {
+    line-height: 1.5rem;
+}
+
+.rating {
+    margin-top: 40px;
+}
+
+.rating div {
+    display: block;
+    background-color: hsl(300, 24%, 96%);
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    border-radius: 7px;
+}
+
+.rating img {
+    margin-right: 0.3rem;
+}
+
+.rating p {
+    margin: 1em 0 0 0;
+    font-weight: bold;
+}
+
+.user_feedback {
+    margin-top: 3rem;
+}
+
+.feedback {
+    background-color: hsl(300, 43%, 22%);
+    margin-bottom: 1rem;
+    border-radius: 7px;
+    padding: 2.5rem 1.8rem 2rem;
+}
+
+.feedback_co {
+    display: flex;
+    height: 48px;
+    align-items: center;
+}
+
+.feedback_co img {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    float: left;
+    margin-right: 
+}
+
+.feedback_user {
+    float: left;
+    margin-left: 25px;
+}
+
+.username {
+    color: white;
+    font-weight: bold;
+}
+
+.userstatus {
+    color: hsl(333, 80%, 67%);
+    margin-top: 0.3rem;
+}
+
+.feedback_content {
+    color: white;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    line-height: 1.5rem;
+}
+
+footer p {
+    color: hsl(300, 43%, 22%);
+    text-align: center;
+}
+
+footer a {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer a:hover {
+    background-color: hsl(300, 43%, 22%);
+    color: white;
+    padding: 0.5rem 0.5rem 0.3rem;
+}

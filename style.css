@@ -81,6 +81,7 @@ tr:nth-child(odd) {
 #nav a:hover {
     background-color: white;
     color: black;
+    transform: scale(1.5);
 }
 
 #nav ul .active {
