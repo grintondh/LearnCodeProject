@@ -76,9 +76,12 @@ function UpdateTime() {
   }, 1000);
 }
 
+function getQuestionContent(content) {
+    document.getElementById("number").innerHTML = "Câu " + idQs + ": " + content;
+}
+
 function LoadQuestion() {
     idQs++;
-    document.getElementById("number").innerHTML = "Câu " + idQs + ": ";
     google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arr[idQs - 1]);
 }
 
