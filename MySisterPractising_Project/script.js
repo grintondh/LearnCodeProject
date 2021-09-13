@@ -39,7 +39,7 @@ function ProcessQuestion() {
     google.script.run.withSuccessHandler(getTotalQuestion).getTotalQuestion();
     google.script.run.withSuccessHandler(getNoUseQuestion).getNoUseQuestion();
     
-    arr = Array.from({length: M}, (_, index) => index + 1);
+    arr = Array.from(Array(M), (_, index) => index + 1);
     arr = shuffle(arr);
     arr = arr.splice(N, M - N);
 }
@@ -82,11 +82,13 @@ function LoadQuestion() {
     google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arr[idQs - 1]);
 }
 
+
 function start() {
     var min = Number(document.getElementById("min").value);
     var sec = Number(document.getElementById("sec").value);
     var before = document.getElementById("before");
     before.remove();
+    document.getElementById("nocorrectans").innerHTML = "0 / " + N;
     LoadQuestion();
     document.getElementById("questionField").style.display = "initial";
     Duration = min * 60 + sec;
