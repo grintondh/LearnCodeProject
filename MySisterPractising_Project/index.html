@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện tập đấu trường</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="Script.js"></script>
+</head>
+
+<body onload="ProcessQuestion()">
+    <div class="container">
+        <header>
+            Luyện tập <span id="contestName"></span>
+        </header>
+        <div id="before">
+            <p id="before_p">Nhấn vào start để bắt đầu tính giờ</p>
+            <div id="TimeInputField">
+                <input type="number" placeholder="phút" id="min">
+                <input type="number" placeholder="giây" id="sec">
+                <input type="submit" value="Start" id="before_inp" onclick="start()">
+            </div>
+        </div>
+        <div>
+            <p id="endtimeNotification"></p>
+        </div>
+        <div id="questionField">
+            <div id="question">
+                <p id="qstext"><span id="number"></span><span id="qs"></span></p>
+                <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="answer">
+            </div>
+            <div id="submit">
+                <input type="button" id="btn-sub" value="Trả lời" onclick="CheckAns()">
+            </div>
+            <div class="alert">
+                <div id="correct">
+                    Bạn trả lời chính xác!
+                </div>
+                <div id="incorrect">
+                    Bạn trả lời sai rồi!
+                </div>
+            </div>
+            <div class="status">
+                <p>Số câu trả lời đúng của bạn:<span id="nocorrectans"></span></p>
+                <p id="timestatus">Thời gian còn lại: <span id="timeleft"></span></p>
+            </div>
+        </div>
+        <p id="check"></p>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+html {
+    height: 100%;
+}
+
+body {
+    background-image: linear-gradient(35deg, #F4D19B, #D7E9F7, #FDFCE5, #F9F3DF);    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Glory', sans-serif;
+}
+
+.container {
+    background-color: rgba(180, 180, 180, 0.2);
+    width: 60%;
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
+header {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+#before {
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+#TimeInputField {
+     display: flex;
+}
+
+#question {
+    border: 1px solid black;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#number, #qs {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+input {
+    height: 40px;
+    width: 70%;
+    font-size: 1.2rem;
+    padding-left: 1%;
+}
+
+#submit {
+  text-align: center;
+}
+
+#min, #sec, #before_inp {
+    width: 40%;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+#before_inp {
+    padding-left: 0;
+}
+
+#btn-sub {
+    background-color: green;
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+.status {
+    margin-top: 20px;
+    font-size: 1.3rem;
+}
+
+#endtimeNotification {
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+#correct {
+    width: 60%;
+    margin: 20px auto;
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 20px;
+    font-weight: bold;
+}
+
+#incorrect {
+    width: 60%;
+    margin: 20px auto;
+    background-color: #f2dede;
+    color: #a94442;
+    padding: 20px;
+    font-weight: bold;
+}
