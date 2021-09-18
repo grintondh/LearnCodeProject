@@ -1,121 +1,207 @@
-function shuffle(array) {
-    var currentIndex = array.length,  randomIndex;
+function printLog() {
+    /// Just for checking log in App Script
+}
+
+function showInnerHTML(stringID, content) {
+    document.getElementById(stringID).innerHTML = content;
+}
+
+function arrayShuffle(array) {
+    var currentIndex = array.length, randomIndex;
 
     while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
-  
+
     return array;
 }
 
-var N, M, idQs = 0;
-var arr;
+var totalQs, nofUseQuestion, unixStartTime, maxWrongAnswer, duration;
+var arrID;
+var answer, idQs, correctAns;
 
-/// Get config
-function getContestName(name) {
-    document.getElementById("contestname").innerHTML = name;
+/// Get setting from config sheet
+function getContestName(return_contestName) {
+    showInnerHTML("contestname", return_contestName);
 }
 
-function getQuestionContent(content) {
-    document.getElementById("qs").innerHTML = content;
+function getTotalQuestion(return_totalQs) {
+    totalQs = Number(return_totalQs);
 }
 
-function getTotalQuestion(totalqs) {
-    M = totalqs;
+function getNumberofUseQuestion(return_nofUseQuestion) {
+    nofUseQuestion = Number(return_nofUseQuestion);
 }
 
-function getNoUseQuestion(useqs) {
-    N = useqs;
+function getUnixStartTime(return_unixStartTime) {
+    unixStartTime = return_unixStartTime;
 }
 
-function ProcessQuestion() {
-    document.getElementById("questionField").style.display = "none";
-    document.getElementById("correct").style.display = "none";
-    document.getElementById("incorrect").style.display = "none";
+function getMaxWrongAnswer(return_maxWrongAnswer) {
+    maxWrongAnswer = return_maxWrongAnswer;
+}
 
+function getDuration(return_duration) {
+    duration = return_duration;
+}
+
+function getConfigFile() {
     google.script.run.withSuccessHandler(getContestName).getContestName();
     google.script.run.withSuccessHandler(getTotalQuestion).getTotalQuestion();
-    google.script.run.withSuccessHandler(getNoUseQuestion).getNoUseQuestion();
-    
-    arr = Array.from(Array(M), (_, index) => index + 1);
-    arr = shuffle(arr);
-    arr = arr.splice(N, M - N);
+    google.script.run.withSuccessHandler(getNumberofUseQuestion).getNumberofUseQuestion();
+    google.script.run.withSuccessHandler(getUnixStartTime).getUnixStartTime();
+    google.script.run.withSuccessHandler(getMaxWrongAnswer).getMaxWrongAnswer();
+    google.script.run.withSuccessHandler(getDuration).getDuration();
 }
 
-// Time
-var Duration = 0;
-
-function UpdateTime() {
-    const startTime = Date.now();
-    var x = setInterval(function() {
-    var now = Date.now();  
-    
-    var distance = now - startTime;
-    
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      
-    var totalTime = minutes * 60 + seconds;
-      
-    document.getElementById("timeleft").innerHTML = Math.floor((Duration - totalTime) / 60) + " phút " + (Duration - totalTime) % 60 + " giây";
-    
-    if (Duration < totalTime) {
-      clearInterval(x);
-      document.getElementById("endtimeNotification").innerHTML = "Đã hết thời gian làm bài";
-      var question = document.getElementById("question");
-      question.remove();
-      var submit = document.getElementById("submit");
-      submit.remove();
-      var timestatus = document.getElementById("timestatus");
-      timestatus.remove();
-    }
-  }, 1000);
+// Setting Time
+function calculateTime(unixTime) {
+    var days = Math.floor(unixTime / (60 * 60 * 24));
+    var hours = Math.floor((unixTime % (60 * 60 * 24)) / (60 * 60));
+    var minutes = Math.floor((unixTime % (60 * 60)) / (60));
+    var seconds = Math.floor((unixTime % (60)) / 1);
+    var dhms = new Array();
+    dhms[0] = days; dhms[1] = hours; dhms[2] = minutes; dhms[3] = seconds;
+    return dhms;
 }
 
-function getQuestionContent(content) {
-    document.getElementById("number").innerHTML = "Câu " + idQs + ": " + content;
+function setQuestionField(status) {
+    document.getElementById("questionField").style.display = status;
+}
+
+function isStarted() {
+    var timeNow = Date.now();
+    var timeDistance = Math.floor(timeNow / 1000)  - unixStartTime;
+    if(timeDistance < 0)
+        return -1; // Not start yet
+    else if(timeDistance <= duration)
+        return 0; // Started
+    else
+        return 1; // Ended
+}
+
+function updateTime() {
+    var timeUnit = [" ngày ", " giờ ", " phút ", " giây "];
+    var x = setInterval(function () {
+        var timeNow = Date.now();
+        var timeDistance = Math.floor(timeNow / 1000) - unixStartTime;
+
+        var dhms = calculateTime(Math.abs(timeDistance));
+        
+        var showContent = "";
+        for(let i = 0; i < timeUnit.length; i++)
+            if(dhms[i] > 0)
+                showContent += dhms[i] + timeUnit[i];
+
+        if(timeDistance <= 0) {
+            showContent = "Bắt đầu sau: " + showContent;
+            showInnerHTML("timeLeft", showContent);
+        }
+        else if(timeDistance < duration) {
+            dhms = calculateTime(Math.abs(duration - timeDistance));
+        
+            showContent = "";
+            for(let i = 0; i < timeUnit.length; i++)
+                if(dhms[i] > 0)
+                    showContent += dhms[i] + timeUnit[i];
+            
+            showContent = "Thời gian còn lại: " + showContent;
+            showInnerHTML("timeLeft", showContent);
+        }
+        else if(timeDistance == duration)
+            EndTest();
+        else
+            showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
+    }, 1000);
+}
+
+function randomizeID() {
+    arrID = Array.from({ length: totalQs }, (_, index) => index + 1);
+    arrID = shuffle(arrID);
+    // totalQs - nofUseQuestion must be greater than 0 to use this line
+    if (nofUseQuestion !== totalQs)
+        arrID = arrID.splice(nofUseQuestion, totalQs - nofUseQuestion);
+}
+
+function beginLoadData() {
+    setQuestionField("none");
+    document.getElementById("startBtn").style.display = "none";
+    getConfigFile();
+    updateTime();
+    
+    var x = setInterval( function () {
+        var y = isStarted();
+        if(y == 0) {
+            document.getElementById("startBtn").style.display = "inherit";
+            clearInterval(x);
+        }
+    }, 1000);
+}
+
+function start() {
+    /// Random arrID
+    showInnerHTML("status", "Khởi tạo các id câu hỏi...");
+    randomizeID();
+    setTimeout(function () { showInnerHTML("status", "Đã khởi tạo xong id"); }, 1000);
+
+    /// Show QuestionField & set up footer
+    document.getElementById("startBtn").style.display = "none";
+    setQuestionField("inherit");
+    showInnerHTML("countCorrectAns", "Số câu trả lời đúng: 0 / " + totalQs);
+    showInnerHTML("countWrongAnswer", "Số câu trả lời sai: 0 / " + maxWrongAnswer);
+    showInnerHTML("status", "");
+
+    LoadQuestion();
+}
+
+function getQuestionContent(questionInfo) {
+    showInnerHTML("number", "Câu " + idQs + ": " + questionInfo[0]);
+    answer = questionInfo[1];
 }
 
 function LoadQuestion() {
+    showInnerHTML("check", "Loading...");
     idQs++;
-    google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arr[idQs - 1]);
-}
-
-
-function start() {
-    var min = Number(document.getElementById("min").value);
-    var sec = Number(document.getElementById("sec").value);
-    var before = document.getElementById("before");
-    before.remove();
-    document.getElementById("nocorrectans").innerHTML = "0 / " + N;
-    LoadQuestion();
-    document.getElementById("questionField").style.display = "initial";
-    Duration = min * 60 + sec;
-    UpdateTime();
-}
-
-var answer = "Hello";
-var correctans = 0;
-
-function ShowAlert(iscorrect) {
-    if(iscorrect == true) {
-        correctans += 1;
-        document.getElementById("correct").style.display = "inherit";
-        setTimeout(function(){document.getElementById("correct").style.display = "none"}, 2000);
-        document.getElementById("nocorrectans").innerHTML = " " + correctans + " / " + N;
+    if (idQs > nofUseQuestion) {
+        EndTest();
+        return ;
     }
-    else {
-        document.getElementById("incorrect").style.display = "inherit";
-        setTimeout(function(){document.getElementById("incorrect").style.display = "none"}, 2000);
-    }
+    google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arrID[idQs - 1]);
+    showInnerHTML("check", "Done");
 }
 
 function CheckAns() {
-    var output = document.getElementById("answer").value;
-    google.script.run.withSuccessHandler(ShowAlert).CheckDB(output, arr[idQs - 1]);
+    var output = document.getElementById("output").value;
+
+    if (output == answer) {
+        correctAns++;
+        document.getElementById("correct").style.display = "inherit";
+        setTimeout(function () { document.getElementById("correct").style.display = "none" }, 1500);
+        showInnerHTML("countCorrectAns", "Số câu trả lời đúng: " + correctAns + " / " + nofUseQuestion);
+        document.getElementById("answer").value = "";
+    }
+    else {
+        document.getElementById("incorrect").style.display = "inherit";
+        setTimeout(function () { document.getElementById("incorrect").style.display = "none" }, 1500);
+        document.getElementById("answer").value = "";
+        showInnerHTML("countWrongAnwer", "Số câu trả lời sai: " + idQs - correctAns + " / " + maxWrongAnswer);
+        if(idQs - correctAns == maxWrongans) {
+            EndTest();
+            return;
+        }
+    }
+
     LoadQuestion();
+}
+
+function EndTest() {
+    showInnerHTML("endtimeNotification", "Bạn đã hoàn thành bài thi!");
+    var question = document.getElementById("question");
+    question.remove();
+    var submit = document.getElementById("submit");
+    submit.remove();
+    var timestatus = document.getElementById("timestatus");
+    timestatus.remove();
 }

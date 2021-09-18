@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện tập đấu trường</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+
+<body onLoad="beginLoadData()">
+    <div class="container">
+        <header>
+            Luyện tập <span id="contestName"></span>
+        </header>
+        <main>
+            <div id="startBtn">
+                <p>Nhấn vào Start để bắt đầu làm bài</p>
+                <input type="submit" id="btn-start" value="Start" onclick="start()">
+            </div>
+            <p id="endTimeNotification"></p>
+            <div id="questionField">
+                <div id="questionBox">
+                    <p id="questionText"></p>
+                    <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="output">
+                </div>
+                <div id="submit">
+                    <input type="submit" id="btn-submit" value="Trả lời" onclick="CheckAns()">
+                </div>
+                <div class="alert">
+                    <div id="correct">
+                        Bạn trả lời chính xác!
+                    </div>
+                    <div id="incorrect">
+                        Bạn trả lời sai rồi!
+                    </div>
+                </div>
+        </main>
+        <footer>
+            <p id="countCorrectAns"></p>
+            <p id="timeAndWrong" style="text-align: left;"><span id="timeLeft"></span><span style="float: right;" id="countWrongAnswer"></span></p>
+        </footer>
+        <p id="status"></p>
+    </div>
+</body>
+
+</html>
