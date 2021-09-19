@@ -98,24 +98,6 @@
             padding-left: 5px;
         }
 
-        #correct {
-            width: 60%;
-            margin: 20px auto;
-            background-color: #dff0d8;
-            color: #3c763d;
-            padding: 20px;
-            font-weight: bold;
-        }
-
-        #incorrect {
-            width: 60%;
-            margin: 20px auto;
-            background-color: #f2dede;
-            color: #a94442;
-            padding: 20px;
-            font-weight: bold;
-        }
-
         #notification {
             width: 90%;
             margin: 10px auto;
@@ -188,7 +170,7 @@
             width: 150px;
         }
 
-        .snackbar {
+        #snackbar-correct, #snackbar-incorrect{
             visibility: hidden;
             min-width: 250px;
             margin-left: -125px;
@@ -200,6 +182,12 @@
             left: 50%;
             bottom: 30px;
             font-size: 17px;
+        }
+
+        #snackbar-correct.show, #snackbar-incorrect.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
         }
 
         @-webkit-keyframes fadein {
@@ -264,15 +252,15 @@
             <div id="leftColumn">
                 <h2>Thông tin bài thi</h2>
                 <div id="testInfo">
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/test.svg"><span
+                    <div class="testInfoElement"><img class="testInfoImg" src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/test.svg"><span
                             id="countCorrectAns">Số câu đúng: 0</span></div>
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/xcross.svg"><span
+                    <div class="testInfoElement"><img class="testInfoImg" src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/xcross.svg"><span
                             id="countWrongAnswer">Số câu đúng: 0</span></div>
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/heart.svg"><span id="heart">Số
+                    <div class="testInfoElement"><img class="testInfoImg" src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/heart.svg"><span id="heart">Số
                             câu đúng: 0</span></div>
                 </div>
                 <div style="text-align: right;">
-                    <button class="btn-submit" id="btn-submitRound" onclick="CheckAns()">Nộp bài thi</button>
+                    <button class="btn-submit" id="btn-submitRound" onclick="SubmitRound()">Nộp bài thi</button>
                 </div>
                 <p id="status"></p>
             </div>
@@ -288,7 +276,7 @@
                     <div id="questionBox">
                         <div id="questionNumber">Câu 1</div>
                         <p id="questionText">1 + 1 = ?</p>
-                        <div><img src="/pic1.jpg" id="questionImg" alt="question_image"></div>
+                        <div><img src="" id="questionImg" alt="question_image"></div>
                         <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="output" required>
                         <hr>
                     </div>
@@ -296,10 +284,10 @@
                         <button class="btn-submit" onclick="CheckAns()">Trả lời</button>
                     </div>
                     <div id="alert">
-                        <div class="snackbar" id="correct">
+                        <div id="snackbar-correct" style="background-color: #dff0d8; color: #3c763d;">
                             Bạn trả lời chính xác!
                         </div>
-                        <div class="snackbar" id="incorrect">
+                        <div id="snackbar-incorrect" style=" background-color: #f2dede;color: #a94442;">
                             Bạn trả lời sai rồi!
                         </div>
                     </div>
@@ -333,6 +321,7 @@ function arrayShuffle(array) {
 var totalQs, nofUseQuestion, unixStartTime, maxWrongAnswer, duration;
 var arrID;
 var answer, idQs = 0, correctAns = 0, wrongAns = 0;
+var isEnd;
 
 /// Get setting from config sheet
 function getContestName(return_contestName) {
@@ -406,6 +395,8 @@ function isStarted() {
 function updateTime() {
     var timeUnit = [" ngày ", " giờ ", " phút ", " giây "];
     var x = setInterval(function () {
+        if(isEnd == true)
+            return ;
         var timeNow = Date.now();
         var timeDistance = Math.floor(timeNow / 1000) - unixStartTime;
 
@@ -506,7 +497,7 @@ function CheckAns() {
     if (output == answer) {
         correctAns++;
         
-        var x = document.getElementById("correct");
+        var x = document.getElementById("snackbar-correct");
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
@@ -516,7 +507,7 @@ function CheckAns() {
     else {
         wrongAns++;
         
-        var x = document.getElementById("incorrect");
+        var x = document.getElementById("snackbar-incorrect");
         x.className = "show";
         setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 
@@ -533,7 +524,14 @@ function CheckAns() {
     LoadQuestion();
 }
 
+function SubmitRound() {
+    document.getElementById("btn-submitRound").style.display = "none";
+    EndTest();
+    return ;
+}
+
 function EndTest() {
+    isEnd = true;
     showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
     document.getElementById("startBtn").style.display = "none";
     document.getElementById("questionField").style.display = "none";
