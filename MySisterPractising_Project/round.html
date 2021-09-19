@@ -8,7 +8,6 @@
     <title>Luyện tập đấu trường</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet">
 
     <style>
         html {
@@ -16,11 +15,10 @@
         }
 
         body {
-            min-height: 80vh;
+            margin-top: 40px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-family: 'Glory', sans-serif;
+            font-family: Arial, serif;
         }
 
         .container {
@@ -31,7 +29,7 @@
 
         header {
             margin-top: 5px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             padding: 0px 1rem;
             font-size: 1.5rem;
             text-align: center;
@@ -62,7 +60,7 @@
         }
 
         #questionImg {
-            max-height: 200px;
+            max-height: 150px;
             margin-bottom: 20px;
         }
 
@@ -70,7 +68,7 @@
             text-align: right;
         }
 
-        #btn-submit {
+        button {
             background-color: #599521;
             color: white;
             height: 45px;
@@ -95,7 +93,9 @@
         #output {
             margin-bottom: 20px;
             width: 300px;
-            height: 20px;
+            height: 30px;
+            font-size: 1rem;
+            padding-left: 5px;
         }
 
         #correct {
@@ -106,7 +106,7 @@
             padding: 20px;
             font-weight: bold;
         }
-        
+
         #incorrect {
             width: 60%;
             margin: 20px auto;
@@ -126,13 +126,7 @@
             font-weight: bold;
         }
 
-        #btn-start {
-            width: 300px;
-            height: 30px;
-            text-align: center;
-        }
-
-        .leftColumn {
+        #leftColumn {
             background-color: #f7f7f7;
             width: 20%;
             border-radius: 4px;
@@ -140,7 +134,12 @@
             float: left;
         }
 
-        .rightColumn {
+        #leftColumn h2 {
+            color: #68b52a;
+            font-size: 1.2rem;
+        }
+
+        #rightColumn {
             background-color: #f7f7f7;
             padding: 1rem 0.7rem;
             border-radius: 4px;
@@ -161,20 +160,94 @@
 
         .testInfoElement {
             display: flex;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
         }
 
-        #score, #countWrongAns, #heart {
+        #countCorrectAns,
+        #countWrongAnswer,
+        #heart {
             display: flex;
             margin-left: 8px;
             align-items: center;
             float: left;
+            font-size: 1rem;
         }
 
-        #timeLeft, #status {
+        #timeLeft,
+        #status {
             background-color: #ffeced;
             color: #e7898e;
             border-radius: 2px;
             padding: 5px 10px;
+        }
+
+        #btn-submitRound {
+            margin-top: 20px;
+            text-align: center;
+            width: 150px;
+        }
+
+        .snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -183,46 +256,50 @@
     <div class="container">
         <header>
             <p style="text-align: left; font-weight: bold; color: #68b52a;">Luyện tập <span id="contestName"></span>
-            <span style="float: right" id="timeLeft"></span>
+                <span style="float: right" id="timeLeft"></span>
             </p>
         </header>
-        <p id="notification"></p>
+        <div id="notification"></div>
         <main>
-            <div id="startBtn">
-                <p>Nhấn vào Start để bắt đầu làm bài</p>
-                <input type="submit" id="btn-start" value="Start" onclick="start()">
-            </div>
-
-            <div class="leftColumn">
-                <h2 style="color: #68b52a">Thông tin bài thi</h2>
+            <div id="leftColumn">
+                <h2>Thông tin bài thi</h2>
                 <div id="testInfo">
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/tick.png"><span id="countCorrectAns"></span></div>
-                    <hr>
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/xcross.png"><span id="countWrongAnswer"></span></div>
-                    <hr>                            
-                    <div class="testInfoElement"><img class="testInfoImg" src="material/heart.png"><span id="heart"></span></div>
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/test.svg"><span
+                            id="countCorrectAns">Số câu đúng: 0</span></div>
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/xcross.svg"><span
+                            id="countWrongAnswer">Số câu đúng: 0</span></div>
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/heart.svg"><span id="heart">Số
+                            câu đúng: 0</span></div>
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn-submit" id="btn-submitRound" onclick="CheckAns()">Nộp bài thi</button>
                 </div>
                 <p id="status"></p>
             </div>
 
 
-            <div class="rightColumn">
+            <div id="rightColumn">
+                <div id="startBtn">
+                    <p>Nhấn vào Start để bắt đầu làm bài</p>
+                    <button id="btn-start" onclick="start()">Start</button>
+                </div>
+
                 <div id="questionField">
                     <div id="questionBox">
-                        <div id="questionNumber"></div>
-                        <p id="questionText"></p>
-                        <div><img src="" id="questionImg" alt="question_image"></div>
+                        <div id="questionNumber">Câu 1</div>
+                        <p id="questionText">1 + 1 = ?</p>
+                        <div><img src="/pic1.jpg" id="questionImg" alt="question_image"></div>
                         <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="output" required>
                         <hr>
                     </div>
                     <div id="submit">
-                        <input type="submit" id="btn-submit" value="Trả lời" onclick="CheckAns()">
+                        <button class="btn-submit" onclick="CheckAns()">Trả lời</button>
                     </div>
                     <div id="alert">
-                        <div id="correct">
+                        <div class="snackbar" id="correct">
                             Bạn trả lời chính xác!
                         </div>
-                        <div id="incorrect">
+                        <div class="snackbar" id="incorrect">
                             Bạn trả lời sai rồi!
                         </div>
                     </div>
@@ -345,7 +422,6 @@ function updateTime() {
         }
         else if(timeDistance < duration) {
             dhms = calculateTime(Math.abs(duration - timeDistance));
-        
             showContent = "";
             for(let i = 0; i < timeUnit.length; i++)
                 if(dhms[i] > 0)
@@ -356,7 +432,6 @@ function updateTime() {
         }
         else if(timeDistance >= duration) {
           EndTest();
-          showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
           return;    
         }
     }, 1000);
@@ -373,6 +448,7 @@ function randomizeID() {
 function beginLoadData() {
     setQuestionField("none");
     document.getElementById("startBtn").style.display = "none";
+    document.getElementById("leftColumn").style.display = "none";
     getConfigFile();
     updateTime();
     
@@ -392,6 +468,7 @@ function start() {
     setTimeout(function () { showInnerHTML("status", "Đã khởi tạo xong id"); }, 1000);
 
     /// Show QuestionField & set up footer
+    document.getElementById("leftColumn").style.display = "inherit";
     document.getElementById("startBtn").style.display = "none";
     setQuestionField("inherit");
     document.getElementById("correct").style.display = "none";
@@ -405,8 +482,8 @@ function start() {
 }
 
 function getQuestionContent(questionInfo) {
-    showInnerHTML("questionNumber", "Câu hỏi" + idQs + ":");
-    showInnerHTML("questionText", "Câu " + idQs + ": " + questionInfo[0]);
+    showInnerHTML("questionNumber", "Câu hỏi " + idQs + ":");
+    showInnerHTML("questionText", questionInfo[0]);
     var imgSrc = document.getElementById("questionImg");
     imgSrc.src = questionInfo[1];
     answer = questionInfo[2];
@@ -428,15 +505,21 @@ function CheckAns() {
 
     if (output == answer) {
         correctAns++;
-        document.getElementById("correct").style.display = "inherit";
-        setTimeout(function () { document.getElementById("correct").style.display = "none" }, 1500);
+        
+        var x = document.getElementById("correct");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
         showInnerHTML("countCorrectAns", "Số câu đúng: " + correctAns);
         document.getElementById("output").value = "";
     }
     else {
         wrongAns++;
-        document.getElementById("incorrect").style.display = "inherit";
-        setTimeout(function () { document.getElementById("incorrect").style.display = "none" }, 1500);
+        
+        var x = document.getElementById("incorrect");
+        x.className = "show";
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+
         showInnerHTML("countWrongAnswer", "Số câu sai: " + wrongAns);
         showInnerHTML("heart", "Mạng: " + (maxWrongAnswer - wrongAns));
         document.getElementById("output").value = "";
@@ -451,11 +534,12 @@ function CheckAns() {
 }
 
 function EndTest() {
+    showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
     document.getElementById("startBtn").style.display = "none";
     document.getElementById("questionField").style.display = "none";
-    document.getElementById("timeAndWrong").style.display = "none";
     showInnerHTML("status", "Bạn đã hoàn thành bài thi!");
 }
 </script>
+
 
 </html>

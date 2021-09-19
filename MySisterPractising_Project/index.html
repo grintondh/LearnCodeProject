@@ -77,8 +77,7 @@
 <body>
     <div class="container">
         <div class="info">
-            <div id="schoolyear">Niên học: 2021 - 2022.</div>
-            <div id="todaytime">Hôm nay: 17/9/2021</div>
+            <div id="todaytime"></div>
         </div>
         <div class="roundtable">
             <table>
@@ -92,12 +91,38 @@
                     <td>Luyện tập Đấu trường</td>
                     <td>4</td>
                     <td>1</td>
-                    <td><a href="round.html" class="btn-red-bg">Vào thi</a></td>
+                    <td><a href="Test.html" class="btn-red-bg">Vào thi</a></td>
                 </tbody>
                 
             </table>
         </div>
     </div>
-</body>
 
+<script>
+  function calculateTime(unixTime) {
+    var days = Math.floor(unixTime / (60 * 60 * 24));
+    var hours = Math.floor((unixTime % (60 * 60 * 24)) / (60 * 60));
+    var minutes = Math.floor((unixTime % (60 * 60)) / (60));
+    var seconds = Math.floor((unixTime % (60)) / 1);
+    var dhms = new Array();
+    dhms[0] = days; dhms[1] = hours; dhms[2] = minutes; dhms[3] = seconds;
+    return dhms;
+  }
+
+  function updateTime() {
+    var timeUnit = [" ngày ", " giờ ", " phút ", " giây "];
+    var x = setInterval(function () {
+        var timeNow = Date.now();
+        var dhms = calculateTime(Math.abs(timeDistance));
+        
+        var showContent = "";
+        for(let i = 0; i < timeUnit.length; i++)
+            if(dhms[i] > 0)
+                showContent += dhms[i] + timeUnit[i];
+
+        document.getElementById("todaytime").innerHTML = "Thời gian hiện tại: " + showContent;
+    }, 1000);
+}
+</script>
+</body>
 </html>
