@@ -9,44 +9,453 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Glory&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Glory', sans-serif;
+        }
+
+        .container {
+            width: 60%;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        header {
+            margin-top: 5px;
+            margin-bottom: 30px;
+            padding: 0px 1rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border: 1px solid grey;
+            border-radius: 4px;
+        }
+
+        #startBtn {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        #questionBox {
+            padding: 2px 10px;
+            text-align: justify;
+        }
+
+        #questionNumber {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        #questionText {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        #questionImg {
+            max-height: 200px;
+            margin-bottom: 20px;
+        }
+
+        #submit {
+            text-align: right;
+        }
+
+        #btn-submit {
+            background-color: #599521;
+            color: white;
+            height: 45px;
+            width: 200px;
+            border-radius: 20px;
+            border: none;
+            font-size: 1.1rem;
+            padding-left: 0;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 1.3rem;
+        }
+
+
+        #endTimeNotification {
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        #output {
+            margin-bottom: 20px;
+            width: 300px;
+            height: 20px;
+        }
+
+        #correct {
+            width: 60%;
+            margin: 20px auto;
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 20px;
+            font-weight: bold;
+        }
+        
+        #incorrect {
+            width: 60%;
+            margin: 20px auto;
+            background-color: #f2dede;
+            color: #a94442;
+            padding: 20px;
+            font-weight: bold;
+        }
+
+        #notification {
+            width: 90%;
+            margin: 10px auto;
+            background-color: #fff3cd;
+            color: #856404;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        #btn-start {
+            width: 300px;
+            height: 30px;
+            text-align: center;
+        }
+
+        .leftColumn {
+            background-color: #f7f7f7;
+            width: 20%;
+            border-radius: 4px;
+            padding: 0px 1rem 1rem 1rem;
+            float: left;
+        }
+
+        .rightColumn {
+            background-color: #f7f7f7;
+            padding: 1rem 0.7rem;
+            border-radius: 4px;
+            width: 70%;
+            float: right;
+        }
+
+        hr {
+            color: #A29E9E;
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        .testInfoImg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .testInfoElement {
+            display: flex;
+        }
+
+        #score, #countWrongAns, #heart {
+            display: flex;
+            margin-left: 8px;
+            align-items: center;
+            float: left;
+        }
+
+        #timeLeft, #status {
+            background-color: #ffeced;
+            color: #e7898e;
+            border-radius: 2px;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 
 <body onLoad="beginLoadData()">
     <div class="container">
         <header>
-            Luyện tập <span id="contestName"></span>
+            <p style="text-align: left; font-weight: bold; color: #68b52a;">Luyện tập <span id="contestName"></span>
+            <span style="float: right" id="timeLeft"></span>
+            </p>
         </header>
+        <p id="notification"></p>
         <main>
             <div id="startBtn">
                 <p>Nhấn vào Start để bắt đầu làm bài</p>
                 <input type="submit" id="btn-start" value="Start" onclick="start()">
             </div>
-            <p id="endTimeNotification"></p>
-            <div id="questionField">
-                <div id="questionBox">
-                    <p id="questionText"></p>
-                    <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="output">
+
+            <div class="leftColumn">
+                <h2 style="color: #68b52a">Thông tin bài thi</h2>
+                <div id="testInfo">
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/tick.png"><span id="countCorrectAns"></span></div>
+                    <hr>
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/xcross.png"><span id="countWrongAnswer"></span></div>
+                    <hr>                            
+                    <div class="testInfoElement"><img class="testInfoImg" src="material/heart.png"><span id="heart"></span></div>
                 </div>
-                <div id="submit">
-                    <input type="submit" id="btn-submit" value="Trả lời" onclick="CheckAns()">
-                </div>
-                <div class="alert">
-                    <div id="correct">
-                        Bạn trả lời chính xác!
+                <p id="status"></p>
+            </div>
+
+
+            <div class="rightColumn">
+                <div id="questionField">
+                    <div id="questionBox">
+                        <div id="questionNumber"></div>
+                        <p id="questionText"></p>
+                        <div><img src="" id="questionImg" alt="question_image"></div>
+                        <input type="text" placeholder="Nhập đáp án của bạn tại đây" id="output" required>
+                        <hr>
                     </div>
-                    <div id="incorrect">
-                        Bạn trả lời sai rồi!
+                    <div id="submit">
+                        <input type="submit" id="btn-submit" value="Trả lời" onclick="CheckAns()">
+                    </div>
+                    <div id="alert">
+                        <div id="correct">
+                            Bạn trả lời chính xác!
+                        </div>
+                        <div id="incorrect">
+                            Bạn trả lời sai rồi!
+                        </div>
                     </div>
                 </div>
+            </div>
         </main>
-        <footer>
-            <p id="countCorrectAns"></p>
-            <p id="timeAndWrong" style="text-align: left;"><span id="timeLeft"></span><span style="float: right;" id="countWrongAnswer"></span></p>
-        </footer>
-        <p id="status"></p>
     </div>
 </body>
+
+<script>
+function printLog() {
+    /// Just for checking log in App Script
+}
+
+function showInnerHTML(stringID, content) {
+    document.getElementById(stringID).innerHTML = content;
+}
+
+function arrayShuffle(array) {
+    var currentIndex = array.length, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
+
+var totalQs, nofUseQuestion, unixStartTime, maxWrongAnswer, duration;
+var arrID;
+var answer, idQs = 0, correctAns = 0, wrongAns = 0;
+
+/// Get setting from config sheet
+function getContestName(return_contestName) {
+    showInnerHTML("contestName", return_contestName);
+}
+
+function getTotalQuestion(return_totalQs) {
+    totalQs = Number(return_totalQs);
+}
+
+function getNumberofUseQuestion(return_nofUseQuestion) {
+    nofUseQuestion = Number(return_nofUseQuestion);
+}
+
+function getUnixStartTime(return_unixStartTime) {
+    unixStartTime = return_unixStartTime;
+}
+
+function getMaxWrongAnswer(return_maxWrongAnswer) {
+    maxWrongAnswer = return_maxWrongAnswer;
+}
+
+function getDuration(return_duration) {
+    duration = return_duration;
+}
+
+function getNotification(string) {
+  showInnerHTML("notification", "Thông báo (cập nhật 1 phút / lần): " + string);
+}
+
+function getConfigFile() {
+    google.script.run.withSuccessHandler(getContestName).getContestName();
+    google.script.run.withSuccessHandler(getTotalQuestion).getTotalQuestion();
+    google.script.run.withSuccessHandler(getNumberofUseQuestion).getNumberofUseQuestion();
+    google.script.run.withSuccessHandler(getUnixStartTime).getUnixStartTime();
+    google.script.run.withSuccessHandler(getMaxWrongAnswer).getMaxWrongAnswer();
+    google.script.run.withSuccessHandler(getDuration).getDuration();
+
+    google.script.run.withSuccessHandler(getNotification).getNotification();
+    var x = setInterval(function() {
+    google.script.run.withSuccessHandler(getNotification).getNotification();
+    }, 60000);
+}
+
+// Setting Time
+function calculateTime(unixTime) {
+    var days = Math.floor(unixTime / (60 * 60 * 24));
+    var hours = Math.floor((unixTime % (60 * 60 * 24)) / (60 * 60));
+    var minutes = Math.floor((unixTime % (60 * 60)) / (60));
+    var seconds = Math.floor((unixTime % (60)) / 1);
+    var dhms = new Array();
+    dhms[0] = days; dhms[1] = hours; dhms[2] = minutes; dhms[3] = seconds;
+    return dhms;
+}
+
+function setQuestionField(status) {
+    document.getElementById("questionField").style.display = status;
+}
+
+function isStarted() {
+    var timeNow = Date.now();
+    var timeDistance = Math.floor(timeNow / 1000)  - unixStartTime;
+    if(timeDistance < 0)
+        return -1; // Not start yet
+    else if(timeDistance <= duration)
+        return 0; // Started
+    else
+        return 1; // Ended
+}
+
+function updateTime() {
+    var timeUnit = [" ngày ", " giờ ", " phút ", " giây "];
+    var x = setInterval(function () {
+        var timeNow = Date.now();
+        var timeDistance = Math.floor(timeNow / 1000) - unixStartTime;
+
+        var dhms = calculateTime(Math.abs(timeDistance));
+        
+        var showContent = "";
+        for(let i = 0; i < timeUnit.length; i++)
+            if(dhms[i] > 0)
+                showContent += dhms[i] + timeUnit[i];
+
+        if(timeDistance <= 0) {
+            showContent = "Bắt đầu sau: " + showContent;
+            showInnerHTML("timeLeft", showContent);
+        }
+        else if(timeDistance < duration) {
+            dhms = calculateTime(Math.abs(duration - timeDistance));
+        
+            showContent = "";
+            for(let i = 0; i < timeUnit.length; i++)
+                if(dhms[i] > 0)
+                    showContent += dhms[i] + timeUnit[i];
+            
+            showContent = "Thời gian còn lại: " + showContent;
+            showInnerHTML("timeLeft", showContent);
+        }
+        else if(timeDistance >= duration) {
+          EndTest();
+          showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
+          return;    
+        }
+    }, 1000);
+}
+
+function randomizeID() {
+    arrID = Array.from({ length: totalQs }, (_, index) => index + 1);
+    arrID = arrayShuffle(arrID);
+    // totalQs - nofUseQuestion must be greater than 0 to use this line
+    if (nofUseQuestion !== totalQs)
+        arrID = arrID.splice(nofUseQuestion, totalQs - nofUseQuestion);
+}
+
+function beginLoadData() {
+    setQuestionField("none");
+    document.getElementById("startBtn").style.display = "none";
+    getConfigFile();
+    updateTime();
+    
+    var x = setInterval( function () {
+        var y = isStarted();
+        if(y == 0) {
+            document.getElementById("startBtn").style.display = "inherit";
+            clearInterval(x);
+        }
+    }, 1000);
+}
+
+function start() {
+    /// Random arrID
+    showInnerHTML("status", "Khởi tạo các id câu hỏi...");
+    randomizeID();
+    setTimeout(function () { showInnerHTML("status", "Đã khởi tạo xong id"); }, 1000);
+
+    /// Show QuestionField & set up footer
+    document.getElementById("startBtn").style.display = "none";
+    setQuestionField("inherit");
+    document.getElementById("correct").style.display = "none";
+    document.getElementById("incorrect").style.display = "none";
+    showInnerHTML("countCorrectAns", "Số câu đúng: 0");
+    showInnerHTML("countWrongAnswer", "Số câu sai: 0");
+    showInnerHTML("heart", "Mạng: " + maxWrongAnswer);
+    showInnerHTML("status", " ");
+
+    LoadQuestion();
+}
+
+function getQuestionContent(questionInfo) {
+    showInnerHTML("questionNumber", "Câu hỏi" + idQs + ":");
+    showInnerHTML("questionText", "Câu " + idQs + ": " + questionInfo[0]);
+    var imgSrc = document.getElementById("questionImg");
+    imgSrc.src = questionInfo[1];
+    answer = questionInfo[2];
+}
+
+function LoadQuestion() {
+    showInnerHTML("status", "Loading...");
+    idQs++;
+    if (idQs > nofUseQuestion) {
+        EndTest();
+        return ;
+    }
+    google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arrID[idQs - 1]);
+    showInnerHTML("status", "Done");
+}
+
+function CheckAns() {
+    var output = document.getElementById("output").value;
+
+    if (output == answer) {
+        correctAns++;
+        document.getElementById("correct").style.display = "inherit";
+        setTimeout(function () { document.getElementById("correct").style.display = "none" }, 1500);
+        showInnerHTML("countCorrectAns", "Số câu đúng: " + correctAns);
+        document.getElementById("output").value = "";
+    }
+    else {
+        wrongAns++;
+        document.getElementById("incorrect").style.display = "inherit";
+        setTimeout(function () { document.getElementById("incorrect").style.display = "none" }, 1500);
+        showInnerHTML("countWrongAnswer", "Số câu sai: " + wrongAns);
+        showInnerHTML("heart", "Mạng: " + (maxWrongAnswer - wrongAns));
+        document.getElementById("output").value = "";
+        if(wrongAns == maxWrongAnswer) {
+            EndTest();
+            return;
+        }
+        document.getElementById("output").value = "";
+    }
+
+    LoadQuestion();
+}
+
+function EndTest() {
+    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("questionField").style.display = "none";
+    document.getElementById("timeAndWrong").style.display = "none";
+    showInnerHTML("status", "Bạn đã hoàn thành bài thi!");
+}
+</script>
 
 </html>

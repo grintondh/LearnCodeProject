@@ -1,3 +1,4 @@
+/**
 function printLog() {
     /// Just for checking log in App Script
 }
@@ -205,3 +206,4 @@ function EndTest() {
     var timestatus = document.getElementById("timestatus");
     timestatus.remove();
 }
+ */
