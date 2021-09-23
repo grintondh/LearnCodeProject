@@ -301,7 +301,7 @@ td {
 }
 
 #note-container {
-    display: inherit;
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
