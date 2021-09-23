@@ -2,639 +2,637 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luyện tập đấu trường</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Luyện tập đấu trường</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <style>
-        html {
-            height: 100%;
-        }
+	<style>
+		html {
+			height: 100%;
+		}
 
-        body {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            font-family: Arial, serif;
-        }
+		body {
+			margin-top: 15px;
+			display: flex;
+			justify-content: center;
+			font-family: Arial, serif;
+		}
 
-        .container {
-            width: 60%;
-            border-radius: 10px;
-            padding: 10px;
-        }
+		#container {
+			display: initial;
+			width: 78%;
+			border-radius: 10px;
+			padding: 10px;
+		}
 
-        header {
-            margin-top: 5px;
-            margin-bottom: 10px;
-            padding: 0px 1rem;
-            font-size: 1.5rem;
-            text-align: center;
-            border: 1px solid grey;
-            border-radius: 4px;
-        }
+		header {
+			margin-top: 5px;
+			margin-bottom: 10px;
+			padding: 0px 0.8rem;
+			font-size: 1.5rem;
+			text-align: center;
+			color: #68b52a;
+			border: 1px solid grey;
+			border-radius: 4px;
+		}
 
-        #startBtn {
-            text-align: center;
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-        }
+		#startBtn {
+			text-align: center;
+			font-size: 1.3rem;
+		}
 
-        #questionBox {
-            padding: 2px 10px;
-            text-align: justify;
-        }
+		#questionBox {
+			padding: 2px 10px;
+			text-align: justify;
+		}
 
-        #questionContent {
-            display: block;
-        }
+		#questionContent {
+			display: block;
+		}
 
-        #reloadQuestion {
-            float: right;
-        }
+		#questionField {
+			background-color: #f7f7f7;
+			border: 1px solid #b9b9b9;
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+			padding: 10px;
+		}
 
-        #questionNumber {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+		#reloadQuestion {
+			float: right;
+		}
 
-        #questionText {
-            margin-top: 10px;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
+		#questionNumber {
+			font-weight: bold;
+			font-size: 1.2rem;
+		}
 
-        #questionImg {
-            max-height: 150px;
-            margin-bottom: 20px;
-        }
+		#questionText {
+			margin-top: 10px;
+			margin-bottom: 20px;
+			font-size: 1.3rem;
+		}
 
-        #submit {
-            text-align: right;
-        }
+		#questionImg {
+			max-height: 150px;
+			margin-bottom: 20px;
+		}
 
-        button {
-            background-color: #599521;
-            color: white;
-            height: 45px;
-            width: 200px;
-            border-radius: 20px;
-            border: none;
-            font-size: 1.1rem;
-            padding-left: 0;
-        }
+		#submit {
+			text-align: right;
+		}
 
-        footer {
-            margin-top: 20px;
-            font-size: 1.3rem;
-        }
+		button {
+			background-color: #599521;
+			color: white;
+			height: 35px;
+			width: 175px;
+			border-radius: 20px;
+			border: none;
+			font-size: 1.1rem;
+			padding-left: 0;
+		}
 
+		footer {
+			margin-top: 20px;
+			font-size: 1.3rem;
+		}
 
-        #endTimeNotification {
-            font-size: 1.3rem;
-            text-align: center;
-        }
+		#outputBox {
+			margin-bottom: 20px;
+			width: 300px;
+			height: 30px;
+			font-size: 1rem;
+			padding-left: 5px;
+		}
 
-        #output {
-            margin-bottom: 20px;
-            width: 300px;
-            height: 30px;
-            font-size: 1rem;
-            padding-left: 5px;
-        }
+		#notification {
+			margin: 10px auto;
+			background-color: #fff3cd;
+			color: #856404;
+			text-align: center;
+			padding: 10px;
+			font-weight: bold;
+		}
 
-        #notification {
-            width: 90%;
-            margin: 10px auto;
-            background-color: #fff3cd;
-            color: #856404;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-        }
+		#leftColumn {
+			width: 30%;
+			border-radius: 4px;
+			padding: 0px 1rem 1rem 0px;
+			float: left;
+		}
 
-        #leftColumn {
-            background-color: #f7f7f7;
-            width: 20%;
-            border-radius: 4px;
-            padding: 0px 1rem 1rem 1rem;
-            float: left;
-        }
+		#leftColumn h2 {
+			color: #68b52a;
+			font-size: 1.2rem;
+		}
 
-        #leftColumn h2 {
-            color: #68b52a;
-            font-size: 1.2rem;
-        }
+		#rightColumn {
+			margin: 10px 0px 1rem 0.7rem;
+			border-radius: 4px;
+			width: 65%;
+			float: right;
+		}
 
-        #rightColumn {
-            background-color: #f7f7f7;
-            padding: 1rem 0.7rem;
-            border-radius: 4px;
-            width: 70%;
-            float: right;
-        }
+		hr {
+			color: #A29E9E;
+			margin-left: 2px;
+			margin-right: 2px;
+		}
 
-        hr {
-            color: #A29E9E;
-            margin-left: 2px;
-            margin-right: 2px;
-        }
+		.testInfoImg {
+			width: 30px;
+			height: 30px;
+		}
 
-        .testInfoImg {
-            width: 30px;
-            height: 30px;
-        }
+		.testInfoElement {
+			display: flex;
+			border-bottom: 1px solid #ddd;
+			padding: 10px 10px;
+		}
 
-        .testInfoElement {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
-        }
+		#countCorrectAns,
+		#countWrongAnswer,
+		#heart {
+			display: flex;
+			margin-left: 3px;
+			align-items: center;
+			float: left;
+			font-size: 1rem;
+		}
 
-        #countCorrectAns,
-        #countWrongAnswer,
-        #heart {
-            display: flex;
-            margin-left: 3px;
-            align-items: center;
-            float: left;
-            font-size: 1rem;
-        }
+		#timeLeft {
+			text-align: center;
+			font-size: 1.1rem;
+			color: #777;
+		}
 
-        #timeLeft,
-        #status {
-            background-color: #ffeced;
-            color: #e7898e;
-            border-radius: 2px;
-            padding: 5px 10px;
-        }
+		#status {
+			background-color: #ffeced;
+			color: #e7898e;
+			border-radius: 2px;
+			padding: 5px 10px;
+			margin-top: 0px;
+			margin-bottom: 0px;
+		}
 
-        #btn-submitRound {
-            margin-top: 20px;
-            text-align: center;
-            width: 150px;
-        }
+		#btn-submitRound {
+			text-align: center;
+			width: 150px;
+		}
 
-        #snackbar-correct,
-        #snackbar-incorrect {
-            visibility: hidden;
-            min-width: 250px;
-            margin-left: -125px;
-            text-align: center;
-            border-radius: 2px;
-            padding: 16px;
-            position: fixed;
-            z-index: 1;
-            left: 50%;
-            bottom: 30px;
-            font-size: 17px;
-        }
+		#snackbar-correct,
+		#snackbar-incorrect {
+			visibility: hidden;
+			min-width: 250px;
+			margin-left: -125px;
+			text-align: center;
+			border-radius: 2px;
+			padding: 16px;
+			position: fixed;
+			z-index: 1;
+			left: 50%;
+			bottom: 30px;
+			font-size: 17px;
+		}
 
-        #snackbar-correct.show,
-        #snackbar-incorrect.show {
-            visibility: visible;
-            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
+		#snackbar-correct.show,
+		#snackbar-incorrect.show {
+			visibility: visible;
+			-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+			animation: fadein 0.5s, fadeout 0.5s 2.5s;
+		}
 
-        @-webkit-keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
+		@-webkit-keyframes fadein {
+			from {
+				bottom: 0;
+				opacity: 0;
+			}
 
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
+			to {
+				bottom: 30px;
+				opacity: 1;
+			}
+		}
 
-        @keyframes fadein {
-            from {
-                bottom: 0;
-                opacity: 0;
-            }
+		@keyframes fadein {
+			from {
+				bottom: 0;
+				opacity: 0;
+			}
 
-            to {
-                bottom: 30px;
-                opacity: 1;
-            }
-        }
+			to {
+				bottom: 30px;
+				opacity: 1;
+			}
+		}
 
-        @-webkit-keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
+		@-webkit-keyframes fadeout {
+			from {
+				bottom: 30px;
+				opacity: 1;
+			}
 
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
+			to {
+				bottom: 0;
+				opacity: 0;
+			}
+		}
 
-        @keyframes fadeout {
-            from {
-                bottom: 30px;
-                opacity: 1;
-            }
+		@keyframes fadeout {
+			from {
+				bottom: 30px;
+				opacity: 1;
+			}
 
-            to {
-                bottom: 0;
-                opacity: 0;
-            }
-        }
+			to {
+				bottom: 0;
+				opacity: 0;
+			}
+		}
 
-        .modal {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
-        }
+		.modal {
+			display: none;
+			justify-content: center;
+			align-items: center;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgb(0, 0, 0);
+			background-color: rgba(0, 0, 0, 0.4);
+		}
 
-        .modal-content {
-            background-color: white;
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 40%;
-        }
+		.modal-content {
+			width: 40%;
+		}
 
-        .leftText {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-left: 10px;
-        }
+		.leftText {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding-left: 10px;
+		}
 
-        .btn-reload {
-            width: 150px;
-            background-color: #5d5d5d;
-            padding-left: 5px;
-            font-size: 0.9rem;
-        }
-    </style>
+		.btn-reload {
+			width: 150px;
+			background-color: #5d5d5d;
+			padding-left: 5px;
+			font-size: 0.9rem;
+		}
+
+		table {
+			width: 100%;
+			border: none;
+			border-collapse: collapse;
+		}
+
+		td {
+			border: 1px solid #b9b9b9;
+			padding: 5px;
+		}
+
+		.tdleft {
+			border-left: none;
+			border-top: none;
+		}
+
+		.tdright {
+			border-right: none;
+			border-top: none;
+		}
+
+		.tdmid {
+			border: none;
+			border-bottom: 1px solid #b9b9b9;
+		}
+
+		#note-container {
+			display: none;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+			margin: 0 auto;
+		}
+
+		ol {
+			padding-left: 40px;
+			padding-right: 20px;
+			line-height: 1.6rem;
+		}
+
+		#note {
+			width: 40%;
+			text-align: justify;
+			padding: 10px 15px 10px 5px;
+			line-height: 1.4rem;
+			margin: 20px 0px 20px 0;
+		}
+
+		.roundBox {
+			background-color: #f7f7f7;
+			border: 1px solid #b9b9b9;
+			margin: 10px 0px 21px 0px;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+
+		#payAttentionBox {
+			margin: 0px 0 20px 10px;
+		}
+
+		.contestInfoBox {
+			text-align: center;
+			line-height: 1.5rem;
+		}
+
+		.roundBoxCaption {
+			font-family: verdana, arial, sans-serif;
+			border-bottom: 1px solid #b9b9b9;
+			margin: 3px 0;
+			padding: 0px 0px 4.5px 7.5px;
+			font-size: 0.9rem;
+			font-weight: bold;
+			color: #3b5998;
+			text-align: left;
+		}
+
+		.roundBoxContent {
+			padding: 5px;
+			font-family: verdana, arial, sans-serif;
+			text-align: justify;
+		}
+
+		.radioDiv {
+			padding: 5px;
+		}
+
+		#startBoard {
+			color: #777;
+		}
+
+		.btn-close:hover {
+			background-color: #a94442;
+		}
+
+		label {
+			font-size: 1.3rem;
+		}
+	</style>
 </head>
 
-<body onLoad="beginLoadData()">
-    <div class="container">
-        <header>
-            <p style="text-align: left; font-weight: bold; color: #68b52a;">Luyện tập <span id="contestName"></span>
-                <span style="float: right" id="timeLeft"></span>
-            </p>
-        </header>
-        <div id="notification"></div>
-        <main>
-            <div id="leftColumn">
-                <h2>Thông tin bài thi</h2>
-                <div id="testInfo">
-                    <div class="testInfoElement"><img class="testInfoImg"
-                            src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/test.svg"><span
-                            class="leftText">Tổng điểm:<span id="countCorrectAns"
-                                style="font-weight: bold;">0</span></span></div>
-                    <div class="testInfoElement"><img class="testInfoImg"
-                            src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/xcross.svg"><span
-                            class="leftText">Số câu sai:<span id="countWrongAnswer"
-                                style="font-weight: bold;">0</span></span></div>
-                    <div class="testInfoElement"><img class="testInfoImg"
-                            src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/heart.svg"><span
-                            class="leftText">Mạng:<span id="heart" style="font-weight: bold;">infinite</span></span>
-                    </div>
-                </div>
-                <div style="text-align: right;">
-                    <button class="btn-submit" id="btn-submitRound" onclick="SubmitRound()">Nộp bài thi</button>
-                </div>
-                <p id="status"></p>
-            </div>
+<body onLoad="preLoad()">
+	<div id="note-container">
+		<div id="note" class="roundBox">
+			<div class="roundBoxCaption">→ Quy định</div>
+			<div class="roundBoxContent">
+				<ol style="margin-top: 0px">
+					<li>Các tài liệu được phép sử dụng sẽ được quy định tại thanh thông báo.</li>
+					<li>Số câu hỏi của bài thi thường không giới hạn, nếu có, sẽ được hiển thị trên thông báo.</li>
+					<li>Kết quả của bạn sẽ được lưu lại khi bạn nhận được thông báo hiển thị số điểm. Không cố gắng
+						thoát ra
+						trong quá trình làm bài trừ khi bạn gặp lỗi.</li>
+					<li>Trong lúc thi, các phím F1 - F10, F12, chuột phải đều bị chặn.</li>
+					<li>Sau khi nhấn bắt đầu làm bài, trình duyệt sẽ hiển thị toàn màn hình. Bạn
+						<strong>không được thay đổi kích cỡ màn hình bằng mọi cách (thu nhỏ cửa sổ, thoát toàn màn hình
+							bằng
+							F11 / ESC). Nếu bạn thay đổi, bài thi của bạn sẽ được nộp ngay lập tức.</strong>
+						Nếu bạn gặp lỗi cần phải thoát ra khỏi màn hình hoặc vô tình bấm vào phím F11 / ESC, hãy liên hệ
+						người quản lý để khắc phục sự cố.
+					</li>
+					<li>Trang thi chỉ được thiết kế cho máy tính. Không sử dụng điện thoại để truy cập.</li>
+				</ol>
+			</div>
+		</div>
+		<div id="right-note">
+			<div id="payAttentionBox" class="roundBox">
+				<div class="roundBoxCaption">→ Chú ý</div>
+				<div class="roundBoxContent contestInfoBox" style="text-align: center;">
+					<div class="roundBoxCaption" id="startStatus" style="text-align: center;">Trước kỳ thi</div>
+					<div id="contestNameBoard">Luyện tập ABCD</div>
+					<div id="duringBoard">Thời gian: 20 phút</div>
+					<div id="startBoard">Bắt đầu sau: 12:00</div>
+				</div>
+			</div>
+			<div class="roundBox" style="text-align: center; margin-left: 10px">
+				<div class="roundBoxCaption">→ Đăng ký thi</div>
+				<div class="roundBoxContent" style="padding-bottom: 10px; text-align: center;">
+					<input type="text" id="userName" placeholder="Nhập tên của bạn"
+						style="height: 25px; font-size: 0.9rem;">
+					<input type="text" id="keys" placeholder="Nhập mã dự thi" style="height: 25px; font-size: 0.9rem;">
+					<p id="loginNotification"></p>
+					<div style="padding: 0px 10px">
+						<button id="goFS" onclick="startFullScreen()">Bắt đầu làm bài</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<div id="container">
+		<header>
+			<p style="text-align: left; font-weight: bold; ">Luyện tập <span id="contestName">ViOlympic</span>
+				<span style="float: right; font-size: 18px;"> Xin chào <span id="showUserName">ABC</span> !</span>
+			</p>
+		</header>
+		<div id="notification">FHUEHIFUHWOIDIJWOJDIWDWDUHWUDHIWJ</div>
 
-            <div id="rightColumn">
-                <div id="startBtn">
-                    <p>Nhấn vào Start để bắt đầu làm bài</p>
-                    <button id="btn-start" onclick="start()">Start</button>
-                </div>
+		<main>
+			<div id="leftColumn">
+				<div class="timeLeftBox roundBox">
+					<div class="roundBoxCaption" id="timeLeftCaption">→ Thời gian kỳ thi</div>
+					<div class="roundBoxContent" id="timeLeft">12:30</div>
+				</div>
 
-                <div id="questionField">
-                    <div id="questionNumber">Câu 1</div>
-                    <div id="questionBox">
-                        <div id="reloadQuestion">
-                            <button class="btn-reload" onclick="LoadQuestion(0)"><img src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/reload.svg"
-                                    style="height: 12px; margin-right: 4px"> Tải lại câu hỏi</button>
-                        </div>
-                        <div id="questionContent">
-                            <p id="questionText">1 + 1 = ?</p>
-                            <div><img src="" id="questionImg" alt="question_image"></div>
-                        </div>
-                    </div>
+				<div id="aboveColumn">
+					<div class="roundBox">
+						<div class="roundBoxCaption">→ Thông tin bài thi</div>
+						<div class="roundBoxContent" id="testInfo" style="padding-bottom: 0px;">
+							<div class="testInfoElement" style="padding-top: 0px"><img class="testInfoImg"
+									src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/test.svg"><span
+									class="leftText">Tổng điểm:<span id="countCorrectAns"
+										style="font-weight: bold;">0</span></span></div>
+							<div class="testInfoElement"><img class="testInfoImg"
+									src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/xcross.svg"><span
+									class="leftText">Số câu sai:<span id="countWrongAnswer"
+										style="font-weight: bold;">0</span></span></div>
+							<div class="testInfoElement" style="border-bottom: none;"><img class="testInfoImg"
+									src="https://grintondh.github.io/LearnCodeProject/MySisterPractising_Project/material/heart.svg"><span
+									class="leftText">Mạng:<span id="heart"
+										style="font-weight: bold;">infinite</span></span>
+							</div>
+						</div>
+					</div>
 
-                    <div id="submit">
-                        <div style="text-align: left;"><input type="text" placeholder="Nhập đáp án của bạn tại đây"
-                                id="output" required></div>
-                        <div style="margin-bottom: 10px; border-bottom: 1px solid grey;"></div>
-                        <button class="btn-submit" onclick="CheckAns()">Trả lời</button>
-                    </div>
-                </div>
-                <div id="alert">
-                    <div id="snackbar-correct" style="background-color: #dff0d8; color: #3c763d;">
-                        Bạn trả lời chính xác!
-                    </div>
-                    <div id="snackbar-incorrect" style=" background-color: #f2dede;color: #a94442;">
-                        Bạn trả lời sai rồi!
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+					<div class="roundBox">
+						<div class="roundBoxCaption">→ Nộp bài</div>
+						<div class="roundBoxContent" style="text-align: center;">
+							<button class="btn-submit" id="btn-submitRound" onclick="SubmitRound()">Nộp bài thi</button>
+						</div>
+					</div>
+				</div>
 
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div id="result">
-                <div style="font-size: 1.4rem; margin-bottom: 30px; border-bottom: 1px solid gray;">Hoàn thành bài thi
-                </div>
-                <div style="margin-bottom: 20px;">Bạn đã hoàn thành bài thi với số điểm là: <span
-                        id="modal-correctAnswer" style="font-weight: bold;">100</span></div>
-            </div>
-            <div id="confirm">
-                <div style="font-size: 1.4rem; margin-bottom: 30px; border-bottom: 1px solid gray;">Xác nhận nộp bài
-                </div>
-                <div style="margin-bottom: 20px;">Bạn muốn xác nhận nộp bài?</div>
-            </div>
-            <div id="btn-close">
-                <button id="close">Đóng</button>
-                <button id="end" onclick="EndTest()">Xác nhận</button>
-            </div>
-        </div>
-    </div>
+				<div class="roundBox">
+					<div class="roundBoxCaption" style="margin-bottom: 0px;">→ Bảng xếp hạng Top 5</div>
+					<div class="roundBoxContent" style="text-align: center; padding: 0px">
+						<table>
+							<thead style="font-weight: bold;">
+								<td style="width: 31.5px;" class="tdleft">Rank</td>
+								<td class="tdmid">Họ và tên</td>
+								<td style="width: 70px; border-top: none;" class="tdright">Điểm</td>
+							</thead>
+							<tbody id="row1">
+								<td class="tdleft">1</td>
+								<td id="name1" class="tdmid"></td>
+								<td id="score1" class="tdright"></td>
+							</tbody>
+							<tbody id="row2">
+								<td class="tdleft">2</td>
+								<td id="name2" class="tdmid"></td>
+								<td id="score2" class="tdright"></td>
+							</tbody>
+							<tbody id="row3">
+								<td class="tdleft">3</td>
+								<td id="name3" class="tdmid"></td>
+								<td id="score3" class="tdright"></td>
+							</tbody>
+							<tbody id="row4">
+								<td class="tdleft">4</td>
+								<td id="name4" class="tdmid"></td>
+								<td id="score4" class="tdright"></td>
+							</tbody>
+							<tbody id="row5">
+								<td class="tdleft" style="border-bottom: none;">5</td>
+								<td id="name5" class="tdmid" style="border-bottom: none;"></td>
+								<td id="score5" class="tdright" style="border-bottom: none;"></td>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="roundBox">
+					<div class="roundBoxCaption">→ Kiểm tra dữ liệu</div>
+					<div class="roundBoxContent" style="font-size: 0.9rem">
+						<p id="status">Done</p>
+						<p id="screendata" style="margin-bottom: 0px;">840 - 840</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="rightColumn">
+				<div id="questionField" style="background-color: #f7f7f7;">
+					<div id="questionNumber">Câu 1</div>
+					<div id="questionBox">
+						<div id="questionContent">
+							<p id="questionText">1 + 1 = ?</p>
+							<div><img src="" id="questionImg" alt="question_image"></div>
+						</div>
+					</div>
+
+					<div id="submit">
+						<div style="text-align: left;"><input type="text" placeholder="Nhập đáp án của bạn tại đây"
+								id="outputBox" required></div>
+						<div style="text-align: left; margin: 5px;">
+							<div class="radioDiv">
+								<input type="radio" name="outputRadio" id="radioA">
+								<label for="radioA" id="labelA">A. 25</label>
+							</div>
+							<div class="radioDiv">
+								<input type="radio" name="outputRadio" id="radioB">
+								<label for="radioB" id="labelB">B. 30</label>
+							</div>
+							<div class="radioDiv">
+								<input type="radio" name="outputRadio" id="radioC">
+								<label for="radioC" id="labelC">C. 40</label>
+							</div>
+							<div class="radioDiv">
+								<input type="radio" name="outputRadio" id="radioD">
+								<label for="radioD" id="labelD">D. 50</label>
+							</div>
+						</div>
+						<div style="margin-bottom: 10px; border-bottom: 1px solid grey;"></div>
+						<span style="padding-right: 10px">Bạn có thể nhấn Enter để trả lời. Cẩn thận tránh để nhấn
+							nhầm!</span>
+						<button class="btn-submit" style="margin-bottom: 10px" onclick="CheckAns()">Trả lời</button>
+					</div>
+				</div>
+
+				<div id="qs-note" class="roundBox">
+					<div class="roundBoxCaption">→ Quy chế thi</div>
+					<div class="roundBoxContent">
+						<ol style="margin-top: 0px">
+							<li>Các tài liệu được phép sử dụng sẽ được quy định tại thanh thông báo.</li>
+							<li>Số câu hỏi của bài thi thường không giới hạn, nếu có, sẽ được hiển thị trên
+								thông
+								báo.</li>
+							<li>Kết quả của bạn sẽ được lưu lại khi bạn nhận được thông báo hiển thị số điểm.
+								Không
+								cố gắng thoát ra
+								trong quá trình làm bài trừ khi bạn gặp lỗi.</li>
+							<li>Trong lúc thi, các phím F1 - F10, F12, chuột phải đều bị chặn.</li>
+							<li>Sau khi nhấn bắt đầu làm bài, trình duyệt sẽ hiển thị toàn màn hình. Bạn
+								<strong>không được thay đổi kích cỡ màn hình bằng mọi cách (thu nhỏ cửa sổ, thoát toàn
+									màn hình bằng F11 / ESC). Nếu bạn thay đổi, bài thi của bạn sẽ được nộp ngay lập
+									tức.</strong>
+								Nếu bạn gặp lỗi cần phải thoát ra khỏi màn hình hoặc vô tình bấm vào phím F11 /
+								ESC,
+								hãy liên hệ
+								người quản lý để khắc phục sự cố.
+							</li>
+							<li>Trang thi chỉ được thiết kế cho máy tính. Không sử dụng điện thoại để truy cập.
+							</li>
+						</ol>
+					</div>
+				</div>
+				<div id="startBtn" class="roundBox" style="padding-bottom: 20px;">
+					<p>Nhấn vào Start để bắt đầu làm bài</p>
+					<button id="btn-start" onclick="start()">Start</button>
+				</div>
+				<div id="alert">
+					<div id="snackbar-correct" style="background-color: #dff0d8; color: #3c763d;">
+						Bạn trả lời chính xác!
+					</div>
+					<div id="snackbar-incorrect" style=" background-color: #f2dede;color: #a94442;">
+						Bạn trả lời sai rồi!
+					</div>
+				</div>
+			</div>
+
+		</main>
+	</div>
+
+	<div id="myModal" class="modal">
+		<!-- Modal content -->
+		<div class="modal-content">
+			<div class="roundBox">
+				<div id="result">
+					<div class="roundBoxCaption">→ Hoàn thành bài thi</div>
+					<div class="roundBoxContent" style="text-align: center;">
+						<div style="margin-bottom: 20px;">Bạn đã hoàn thành bài thi với số điểm là: <span
+								id="modal-correctAnswer" style="font-weight: bold;">100</span></div>
+						<div style="margin-bottom: 20px;">Thời gian làm bài: <span id="modal-testTime"
+								style="font-weight: bold;">1:20</span></div>
+						<div style="margin-bottom: 10px;">(Bạn có thể nhấn F11 / ESC để thoát màn hình)</div>
+					</div>
+				</div>
+				<div id="confirm">
+					<div class="roundBoxCaption">→ Xác nhận nộp bài</div>
+					<div class="roundBoxContent" style="text-align: center;">
+						<div style="margin-bottom: 10px;">Bạn muốn xác nhận nộp bài?</div>
+					</div>
+				</div>
+				<div class="roundBoxContent" style="text-align: center;">
+					<button class="btn-close" id="close">Đóng</button>
+					<button class="btn-close" id="end" onclick="EndTest()">Xác nhận</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
-
-<script>
-    function printLog() {
-        /// Just for checking log in App Script
-    }
-
-    function showInnerHTML(stringID, content) {
-        document.getElementById(stringID).innerHTML = content;
-    }
-
-    function arrayShuffle(array) {
-        var currentIndex = array.length, randomIndex;
-
-        while (currentIndex !== 0) {
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex--;
-            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-
-        return array;
-    }
-
-    var totalQs, nofUseQuestion, unixStartTime, maxWrongAnswer, duration;
-    var arrID;
-    var answer, idQs = 0, correctAns = 0, wrongAns = 0;
-    var isEnd;
-
-    /// Get setting from config sheet
-    function getContestName(return_contestName) {
-        showInnerHTML("contestName", return_contestName);
-    }
-
-    function getTotalQuestion(return_totalQs) {
-        totalQs = Number(return_totalQs);
-    }
-
-    function getNumberofUseQuestion(return_nofUseQuestion) {
-        nofUseQuestion = Number(return_nofUseQuestion);
-    }
-
-    function getUnixStartTime(return_unixStartTime) {
-        unixStartTime = return_unixStartTime;
-    }
-
-    function getMaxWrongAnswer(return_maxWrongAnswer) {
-        maxWrongAnswer = return_maxWrongAnswer;
-    }
-
-    function getDuration(return_duration) {
-        duration = return_duration;
-    }
-
-    function getNotification(string) {
-        showInnerHTML("notification", "Thông báo (cập nhật 1 phút / lần): " + string);
-    }
-
-    function getConfigFile() {
-        google.script.run.withSuccessHandler(getContestName).getContestName();
-        google.script.run.withSuccessHandler(getTotalQuestion).getTotalQuestion();
-        google.script.run.withSuccessHandler(getNumberofUseQuestion).getNumberofUseQuestion();
-        google.script.run.withSuccessHandler(getUnixStartTime).getUnixStartTime();
-        google.script.run.withSuccessHandler(getMaxWrongAnswer).getMaxWrongAnswer();
-        google.script.run.withSuccessHandler(getDuration).getDuration();
-
-        google.script.run.withSuccessHandler(getNotification).getNotification();
-        var x = setInterval(function () {
-            google.script.run.withSuccessHandler(getNotification).getNotification();
-        }, 60000);
-    }
-
-    // Setting Time
-    function calculateTime(unixTime) {
-        var days = Math.floor(unixTime / (60 * 60 * 24));
-        var hours = Math.floor((unixTime % (60 * 60 * 24)) / (60 * 60));
-        var minutes = Math.floor((unixTime % (60 * 60)) / (60));
-        var seconds = Math.floor((unixTime % (60)) / 1);
-        var dhms = new Array();
-        dhms[0] = days; dhms[1] = hours; dhms[2] = minutes; dhms[3] = seconds;
-        return dhms;
-    }
-
-    function setQuestionField(status) {
-        document.getElementById("questionField").style.display = status;
-    }
-
-    function isStarted() {
-        var timeNow = Date.now();
-        var timeDistance = Math.floor(timeNow / 1000) - unixStartTime;
-        if (timeDistance < 0)
-            return -1; // Not start yet
-        else if (timeDistance <= duration)
-            return 0; // Started
-        else
-            return 1; // Ended
-    }
-
-    function updateTime() {
-        var timeUnit = [" ngày ", " giờ ", " phút ", " giây "];
-        var x = setInterval(function () {
-            if (isEnd == true)
-                return;
-            var timeNow = Date.now();
-            var timeDistance = Math.floor(timeNow / 1000) - unixStartTime;
-
-            var dhms = calculateTime(Math.abs(timeDistance));
-
-            var showContent = "";
-            for (let i = 0; i < timeUnit.length; i++)
-                if (dhms[i] > 0)
-                    showContent += dhms[i] + timeUnit[i];
-
-            if (timeDistance <= 0) {
-                showContent = "Bắt đầu sau: " + showContent;
-                showInnerHTML("timeLeft", showContent);
-            }
-            else if (timeDistance < duration) {
-                dhms = calculateTime(Math.abs(duration - timeDistance));
-                showContent = "";
-                for (let i = 0; i < timeUnit.length; i++)
-                    if (dhms[i] > 0)
-                        showContent += dhms[i] + timeUnit[i];
-
-                showContent = "Thời gian còn lại: " + showContent;
-                showInnerHTML("timeLeft", showContent);
-            }
-            else if (timeDistance >= duration) {
-                EndTest();
-                return;
-            }
-        }, 1000);
-    }
-
-    function randomizeID() {
-        arrID = Array.from({ length: totalQs }, (_, index) => index + 1);
-        arrID = arrayShuffle(arrID);
-        // totalQs - nofUseQuestion must be greater than 0 to use this line
-        if (nofUseQuestion != totalQs)
-            arrID = arrID.splice(0, nofUseQuestion);
-    }
-
-    function beginLoadData() {
-        setQuestionField("none");
-        document.getElementById("startBtn").style.display = "none";
-        document.getElementById("leftColumn").style.display = "none";
-        getConfigFile();
-        updateTime();
-
-        var x = setInterval(function () {
-            var y = isStarted();
-            if (y == 0) {
-                document.getElementById("startBtn").style.display = "inherit";
-                clearInterval(x);
-            }
-        }, 1000);
-    }
-
-    function start() {
-        /// Random arrID
-        showInnerHTML("status", "Khởi tạo các id câu hỏi...");
-        randomizeID();
-        setTimeout(function () { showInnerHTML("status", "Đã khởi tạo xong id"); }, 1000);
-
-        /// Show QuestionField & set up footer
-        document.getElementById("leftColumn").style.display = "inherit";
-        document.getElementById("startBtn").style.display = "none";
-        setQuestionField("inherit");
-        showInnerHTML("countCorrectAns", " 0");
-        showInnerHTML("countWrongAnswer", " 0");
-        showInnerHTML("heart", " " + maxWrongAnswer);
-        showInnerHTML("status", " ");
-
-        LoadQuestion(1);
-    }
-
-    function getQuestionContent(questionInfo) {
-        showInnerHTML("questionNumber", "Câu hỏi " + idQs + ":");
-        showInnerHTML("questionText", questionInfo[0]);
-        var imgSrc = document.getElementById("questionImg");
-        imgSrc.src = questionInfo[1];
-        answer = questionInfo[2];
-    }
-
-    function LoadQuestion(e) {
-        showInnerHTML("status", "Loading...");
-        idQs = idQs + e;
-        if (idQs > nofUseQuestion) {
-            EndTest();
-            return;
-        }
-        google.script.run.withSuccessHandler(getQuestionContent).getQuestionContent(arrID[idQs - 1]);
-        showInnerHTML("status", "Done");
-    }
-
-    function CheckAns() {
-        var output = document.getElementById("output").value;
-
-        if (output == answer) {
-            correctAns++;
-
-            var x = document.getElementById("snackbar-correct");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-            showInnerHTML("countCorrectAns", " " + correctAns * 10);
-            document.getElementById("output").value = "";
-        }
-        else {
-            wrongAns++;
-
-            var x = document.getElementById("snackbar-incorrect");
-            x.className = "show";
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-
-            showInnerHTML("countWrongAnswer", " " + wrongAns);
-            showInnerHTML("heart", " " + (maxWrongAnswer - wrongAns));
-            document.getElementById("output").value = "";
-            if (wrongAns == maxWrongAnswer) {
-                EndTest();
-                return;
-            }
-            document.getElementById("output").value = "";
-        }
-
-        LoadQuestion(1);
-    }
-
-var modal = document.getElementById("myModal");
-var close = document.getElementById("close");
-
-    function SubmitRound() {
-        modal.style.display = "inherit";
-        document.getElementById("result").style.display = "none";
-        document.getElementById("confirm").style.display = "inherit";
-        document.getElementById("end").style.display = "initial";
-        showInnerHTML("close", "Đóng");
-        return;
-    }
-
-    function EndTest() {
-        isEnd = true;
-        document.getElementById("btn-submitRound").style.display = "none";
-        showInnerHTML("timeLeft", "Đã kết thúc lượt thi");
-        document.getElementById("startBtn").style.display = "none";
-        document.getElementById("questionField").style.display = "none";
-        showInnerHTML("status", "Bạn đã hoàn thành bài thi!");
-
-
-        modal.style.display = "inherit";
-        showInnerHTML("close", "Kết thúc");
-        document.getElementById("result").style.display = "inherit";
-        document.getElementById("confirm").style.display = "none";
-        document.getElementById("end").style.display = "none";
-        showInnerHTML("modal-correctAnswer", correctAns * 10);
-    }
-
-    close.onclick = function () {
-        modal.style.display = "none";
-    }
-</script>
 
 </html>

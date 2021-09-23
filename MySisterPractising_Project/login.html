@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+        #element {
+            margin: 40px auto 20px auto;
+            height: 200px;
+            width: 400px;
+            background-color: #e9e9e9;
+            font-size: 20px;
+            padding: 40px 0 0 0;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #go-button {
+            width: 200px;
+            display: block;
+            margin: 50px auto 0 auto;
+        }
+
+        /* webkit requires explicit width, height = 100% of sceeen */
+        /* webkit also takes margin into account in full screen also - so margin should be removed (otherwise black areas will be seen) */
+        #element:-webkit-full-screen {
+            width: 100%;
+            height: 100%;
+            background-color: pink;
+            margin: 0;
+        }
+
+        #element:-moz-full-screen {
+            background-color: pink;
+            margin: 0;
+        }
+
+        #element:-ms-fullscreen {
+            background-color: pink;
+            margin: 0;
+        }
+
+        /* W3C proposal that will eventually come in all browsers */
+        #element:fullscreen {
+            background-color: pink;
+            margin: 0;
+        }
+
+        /* Full-width input fields */
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="element">
+        <div class="container">
+            <label for="psw"><b>Code</b></label>
+            <input type="text" placeholder="Enter Password" required>
+            <button type="submit" id="go-button" onclick="LoadPage()">Login</button>
+        </div>
+    </div>
+    <iframe src="https://script.google.com/macros/s/AKfycbx0w4hQyBVHoeLuCTvAbCwVE6cImPNn-70MYX1WMCnXcr8RwHY52lQxGQva_vkahozo/exec" id="frame" style="display: none;"></iframe>
+</body>
+
+<script>
+    function requestFullScreen(element) {
+        // Supports most browsers and their versions.
+        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+        if (requestMethod) { // Native full screen.
+            requestMethod.call(element);
+        } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+            var wscript = new ActiveXObject("WScript.Shell");
+            if (wscript !== null) {
+                wscript.SendKeys("{F11}");
+            }
+        }
+    }
+
+    function LoadPage() {
+        var elem = document.getElementById("frame"); // Make the body go full screen.
+        elem.style.display = "initial";
+        requestFullScreen(elem);
+    }
+
+    // disable right click
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function (e) {
+        // disable F11 key
+        if (e.keyCode == 122) {
+            return false;
+        }
+    }
+</script>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện tập đấu trường</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <style>
+        *:fullscreen,
+        *:-webkit-full-screen,
+        *:-moz-full-screen {
+            background-color: white;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, serif;
+        }
+
+        #note-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        ol {
+            padding-left: 40px;
+            padding-right: 20px;
+            line-height: 1.6rem;
+        }
+
+        #note {
+            width: 40%;
+            text-align: justify;
+            padding: 10px 15px 10px 5px;
+            line-height: 1.4rem;
+            margin: 20px 0px 20px 0;
+        }
+
+        .roundBox {
+            padding: 10px;
+            border: 1px solid #b9b9b9;
+        }
+
+        #payAttentionBox {
+            margin: 0px 0 20px 10px;
+        }
+
+        .contestInfoBox {
+            text-align: center;
+            border: 1px solid #b9b9b9;
+            line-height: 1.5rem;
+        }
+
+        .caption {
+            font-family: verdana,arial,sans-serif;;
+            font-weight: 700;
+            color: #3b5998;
+            text-align: left;
+        }
+
+        #startBoard {
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="note-container">
+        <div id="note">
+            <div class="roundBox caption">→ Quy định</div>
+            <div class="roundBox">
+                <ol>
+                    <li>Các tài liệu được phép sử dụng sẽ được quy định tại thanh thông báo.</li>
+                    <li>Số câu hỏi của bài thi thường không giới hạn, nếu có, sẽ được hiển thị trên thông báo.</li>
+                    <li>Kết quả của bạn sẽ được lưu lại khi bạn nhận được thông báo hiển thị số điểm. Không cố gắng
+                        thoát ra
+                        trong quá trình làm bài trừ khi bạn gặp lỗi.</li>
+                    <li>Trong lúc thi, các phím F1 - F10, F12, chuột phải đều bị chặn.</li>
+                    <li>Sau khi nhấn bắt đầu làm bài, trình duyệt sẽ hiển thị toàn màn hình. Bạn
+                        <strong>không được thay đổi kích cỡ màn hình bằng mọi cách (thu nhỏ cửa sổ, thoát toàn màn hình
+                            bằng
+                            F11 / ESC). Nếu bạn thay đổi, bài thi của bạn sẽ được nộp ngay lập tức.</strong>
+                        Nếu bạn gặp lỗi cần phải thoát ra khỏi màn hình hoặc vô tình bấm vào phím F11 / ESC, hãy liên hệ
+                        người quản lý để khắc phục sự cố.
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div id="right-note">
+            <div id="payAttentionBox">
+                <div class="roundBox caption">→ Chú ý</div>
+                <div class="roundBox contestInfoBox">
+                    <div class="caption" id="startStatus" style="text-align: center;">Trước kỳ thi</div>
+                    <div id="contestNameBoard">Luyện tập ABCD</div>
+                    <div id="numberofQsBoard">Số câu hỏi: 20</div>
+                    <div id="duringBoard">Thời gian: 20 phút</div>
+                    <div id="startBoard">Bắt đầu sau: 12:00</div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-left: 10px">
+                <div class="roundBox caption">→ Đăng ký thi</div>
+                <div style="padding-bottom: 10px;" class="roundBox">
+                    <input type="text" id="userName" placeholder="Nhập tên của bạn" style="height: 25px; font-size: 0.9rem;">
+                    <input type="text" id="keys" placeholder="Nhập mã dự thi" style="height: 25px;  font-size: 0.9rem;">
+                    <p id="loginNotification"></p>
+                    <div style="padding: 0px 10px">
+                        <button id="goFS" onclick="startFullScreen()">Bắt đầu làm bài</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
