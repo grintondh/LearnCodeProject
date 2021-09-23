@@ -23,6 +23,7 @@ var arrID;
 var answer, idQs = 0, correctAns = 0, wrongAns = 0;
 var isEnd = false;
 var userName = "";
+var qsType = 0;
 
 /// Get setting from config sheet
 function getContestName(return_contestName) {
@@ -279,10 +280,22 @@ function start() {
 
 function getQuestionContent(questionInfo) {
     showInnerHTML("questionNumber", "Câu hỏi " + idQs + ":");
-    showInnerHTML("questionText", questionInfo[0]);
+    qsType = questionInfo[0];
+    showInnerHTML("questionText", questionInfo[1]);
     var imgSrc = document.getElementById("questionImg");
-    imgSrc.src = questionInfo[1];
-    answer = questionInfo[2];
+    imgSrc.src = questionInfo[2];
+    if(qsType == 1) {
+        document.getElementById("outputRadio").style.display = "none";
+        answer = questionInfo[3];
+    }
+    else if(qsType == 2) {
+        document.getElementById("outputBox").style.display = "none";
+        showInnerHTML("labelA", "A. " + questionInfo[4]);
+        showInnerHTML("labelB", "B. " + questionInfo[5]);
+        showInnerHTML("labelC", "C. " + questionInfo[6]);
+        showInnerHTML("labelD", "D. " + questionInfo[7]);
+        answer = questionInfo[8];
+    }
 }
 
 function LoadQuestion(e) {
@@ -297,7 +310,15 @@ function LoadQuestion(e) {
 }
 
 function CheckAns() {
-    var output = document.getElementById("output").value;
+    var output;
+    if(qsType == 1)
+        output = document.getElementById("outputBox").value;
+    else if(qsType == 2) {
+        var oR = document.getElementsByName("oR");
+        for(i = 0; i < oR.length; i++)
+            if(oR[i].checked)
+                output = oR[i].value;
+    }
 
     if (output == answer) {
         correctAns++;
